@@ -1,8 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  reactStrictMode: true,
+  swcMinify: true,
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+        ],
+      },
+    ];
   },
-}
+  output: "standalone",
+  images: {
+    domains: ["storage.googleapis.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
